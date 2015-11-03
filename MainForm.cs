@@ -240,9 +240,9 @@ namespace WindowFocusNotifier
 			TransparencyKey = Color.Lime;
 			
 			//
-			// Draw a blue border around the window
+			// Draw a coloured border around the window
 			//
-			Brush b = new SolidBrush(Color.Blue);
+			Brush b = new SolidBrush(Color.Yellow);
 			
 			int BORDER_WIDTH = (isMaximised_i ? 3 : 5);
 			int TITLE_BAR_BORDER_WIDTH = (isMaximised_i ? 23 : 27);
