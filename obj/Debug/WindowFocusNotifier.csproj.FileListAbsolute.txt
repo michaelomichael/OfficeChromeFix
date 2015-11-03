@@ -1,0 +1,7 @@
+E:\dotnet\WindowFocusNotifier\obj\Debug\WindowFocusNotifier.csprojResolveAssemblyReference.cache
+E:\dotnet\WindowFocusNotifier\obj\Debug\WindowFocusNotifier.MainForm.resources
+E:\dotnet\WindowFocusNotifier\obj\Debug\WindowFocusNotifier.csproj.GenerateResource.Cache
+E:\dotnet\WindowFocusNotifier\bin\Debug\WindowFocusNotifier.exe
+E:\dotnet\WindowFocusNotifier\bin\Debug\WindowFocusNotifier.pdb
+E:\dotnet\WindowFocusNotifier\obj\Debug\WindowFocusNotifier.exe
+E:\dotnet\WindowFocusNotifier\obj\Debug\WindowFocusNotifier.pdb
