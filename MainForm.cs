@@ -148,6 +148,12 @@ namespace WindowFocusNotifier
 			this.Width = rect_p.Width - (MARGIN_LEFT + MARGIN_RIGHT);
 			this.Height = rect_p.Height - (MARGIN_BOTTOM + MARGIN_TOP);
 			
+			//
+			//  Fix for issue #1 - set the 'top most' attribute again to make sure it doesn't go
+			//  down the z-order pecking order when other top most windows appear.
+			//
+			this.TopMost = true;
+			
 		    this.Show();
 	    }
 
