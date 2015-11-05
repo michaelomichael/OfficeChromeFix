@@ -97,10 +97,11 @@ namespace WindowFocusNotifier
 	    private void HandleWindowActivation(IntPtr hWnd_p)
 	    {		    	
 	    	bool isBorderWindow = (hWnd_p == this.Handle);
-	    		    	
-	    	if (! isBorderWindow)
+	    	bool isTopLevelWindow = IsTopLevelWindow(hWnd_p);
+	    	
+	    	if (isTopLevelWindow  &&  ! isBorderWindow)
 	    	{
-			    if (IsOffice365Window(hWnd_p))
+	    		if (IsOffice365Window(hWnd_p))
 			    {									
 					RECT rect;
 					Win32.GetWindowRect(hWnd_p, out rect);
@@ -157,16 +158,16 @@ namespace WindowFocusNotifier
 		    this.Show();
 	    }
 
-
-	    	    
 	    
-	    public bool IsOffice365Window(IntPtr hWnd)
-	    {	    		    	
-	    	if (! isOffice365WindowsOnly_i)
-	    	{
-	    		return true;
-	    	}
-	    	
+	    
+	    private bool IsTopLevelWindow(IntPtr hWnd)
+	    {
+	    	return IntPtr.Zero == Win32.GetParent(hWnd);
+	    }
+
+	    
+	    private string GetWindowClass(IntPtr hWnd)
+	    {
 	    	string sClassName = "Unknown yet...";
 	    	
 	    	//
@@ -177,27 +178,40 @@ namespace WindowFocusNotifier
 			//
 		    // Get the window class name
 		    //
-		    int iResult = Win32.GetClassName(hWnd, className, className.Capacity);
+		    if (0 != Win32.GetClassName(hWnd, className, className.Capacity))
+		    {
+		    	sClassName = className.ToString();
+		    }
 		    
+		    return sClassName;
+	    }
+	    
+	    
+	    	    
+	    
+	    public bool IsOffice365Window(IntPtr hWnd)
+	    {	    		    	
+	    	if (! isOffice365WindowsOnly_i)
+	    	{
+	    		return true;
+	    	}
+	    	
+	    	string sClassName = GetWindowClass(hWnd);
+	    	
 		    string[] offendingClasses = {   "XLMAIN", // Excel
 										    "VISIOA", // Visio
 										    "OpusApp", // Word
 										    "rctrl_renwnd32", // Outlook
 										    "Framework::CFrame" }; // OneNote
 		    
-		    if (0 != iResult)
-		    {
-		    	sClassName = className.ToString();
-		    	
-		    	foreach (string sOffendingClass in offendingClasses)
-		    	{
-		    		if (sOffendingClass.Equals(sClassName))
-		    		{
-		    			Debug("Window class '" + sClassName + "' is Office365");
-		    			return true;
-		    		}
-		    	}
-		    }
+	    	foreach (string sOffendingClass in offendingClasses)
+	    	{
+	    		if (sOffendingClass.Equals(sClassName))
+	    		{
+	    			Debug("Window class '" + sClassName + "' is Office365");
+	    			return true;
+	    		}
+	    	}
 		    
 		   	Debug("Window class '" + sClassName + "' is normal");
 		    		    

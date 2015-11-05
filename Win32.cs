@@ -35,6 +35,9 @@ namespace WindowFocusNotifier
 		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
 		public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName,int nMaxCount);
 				
+		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+		public static extern IntPtr GetParent(IntPtr hWnd);
+				
 			
 		public const uint WINEVENT_OUTOFCONTEXT = 0x0000; // Events are ASYNC
 		public const uint WINEVENT_SKIPOWNTHREAD = 0x0001; // Don't call back for events on installer's thread
